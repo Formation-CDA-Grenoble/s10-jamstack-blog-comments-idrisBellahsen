@@ -2,42 +2,46 @@ import React, { Component } from 'react';
 import { Form, FormControl, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 
-class SearchForm extends Component {
+class CommentForm extends Component {
   state = {
     argument: '',
   }
 
   handleChange = (event) => {
     const argument = event.target.value;
-
     this.setState({ argument });
   }
 
   handleSubmit = (event) => {
-    const { history } = this.props;
+    // const { slug } = this.props;
+    // const { history } = this.props;
     const { argument } = this.state;
     event.preventDefault();
-    history.push(`/search/${argument}`);
+    // history.push(`/article/${slug}`);
+    this.props.submitcom(argument)
   }
 
-  render = ( ) => {
+  render = () => {
     const { argument } = this.state;
-  
-    return (  
+
+
+    return (
+       
       <Form inline onSubmit={this.handleSubmit}>
         <FormControl
           type="text"
-          placeholder="Search"
+          placeholder="Commentaire"
           className="mr-sm-2"
           value={argument}
           onChange={this.handleChange}
         />
+     
         <Button variant="outline-success" type="submit" disabled={argument === ''}>
-          Search
+          Comment
         </Button>
       </Form>
     );
   }
 }
 
-export default withRouter(SearchForm);
+export default withRouter(CommentForm);

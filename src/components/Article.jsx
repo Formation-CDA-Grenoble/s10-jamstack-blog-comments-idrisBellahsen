@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Jumbotron, Button, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { CommentForm,CommentList } from '.';
 
-const Article = ({ article }) =>
-  <article>
+export default class Article extends Component {
+  state = {
+    commentaire: [],
+  }
+
+  render = () => {
+    const article = (this.props.article)
+    return (
+          <article>
     <Jumbotron>
       <h1>{article.title}</h1>
       <small>Published on {new Date(article.createdAt).toLocaleString('en-EN')}</small>
@@ -13,7 +21,22 @@ const Article = ({ article }) =>
     <Link to="/">
       <Button variant="secondary">Back to Home</Button>
     </Link>
-  </article>
-;
+    <CommentList commentaires={this.state.commentaire}/>
+    <CommentForm submitcom={this.submitComment}/>
 
-export default Article;
+  </article>
+     
+    );
+  }
+
+  submitComment=  (newComment) => {
+    let commentairee = []
+    commentairee = this.state.commentaire;
+    commentairee.push(newComment)
+    this.setState({ commentaire : commentairee });
+    console.log(this.state.commentaire)
+
+
+  }
+    
+}
